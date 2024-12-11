@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\studentsController;
 use App\Models\student;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,12 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+    //CRUD Estudiantes
+    Route::get('/students/create_student',[studentsController::class,'create'])->middleware(['verified'])->name('student.create');
+    Route::get('/students', [studentsController::class,'index'])->middleware(['verified'])->name('student.view');
+    Route::post('/students',[studentsController::class,'store']);
+    Route::get('/students/{student}', [studentsController::class,'show'])->middleware(['verified'])->name('student.show');
+    Route::get('/students/{student}/edit', [studentsController::class,'edit'])->middleware(['verified'])->name('student.edit');
+    Route::put('/students/{student}', [studentsController::class,'update'])->middleware(['verified'])->name('student.update');
+    Route::delete('/students/{student}', [studentsController::class,'destroy'])->middleware(['verified'])->name('student.destroy');
 });
