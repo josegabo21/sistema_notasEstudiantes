@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profesor;
 use App\Models\student;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,9 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        Profesor::create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password'=>bcrypt("12345678")
         ]);
 
         student::factory(20)->create();

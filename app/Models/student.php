@@ -15,4 +15,8 @@ class student extends Model
         "grado"
     ];
     protected $table = "students";
+
+    public function boletines(){
+        return $this->hasMany(boletines::class);
+    }
 }

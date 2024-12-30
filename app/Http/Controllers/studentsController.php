@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class studentsController extends Controller
 {
-    
+
     public function index(){
         $students = student::all();
         $routeName = Route::currentRouteName();
@@ -52,7 +52,7 @@ class studentsController extends Controller
                                    'grado'=>'required']);
         $routeName = Route::currentRouteName();
         $profile=explode(".",$routeName)[0];
-        $student=student::find($student);+
+        $student=student::find($student);
         $student->update($request->all());
         return redirect()->route("$profile.student.show",$student);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\boletinesController;
 use App\Http\Controllers\Profesor\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Profesor\Auth\RegisteredUserController;
 use App\Http\Controllers\Profesor\ProfileController;
@@ -34,4 +35,8 @@ Route::middleware('auth:profesor')->prefix('profesor')->name('profesor.')->group
     //Alexander
     Route::get('create_student',[studentsController::class,'create'])->name('student.create');
     Route::post('/dashboard',[studentsController::class,'store']);
+    Route::get('/boletines/{id_student}', [boletinesController::class,'show'])->middleware(['verified'])->name('boletin.show');
+    Route::get('/boletines/{id_student}/create', [boletinesController::class,'create'])->middleware(['verified'])->name('boletin.create');
+    Route::post('/boletines/{id_student}',[boletinesController::class,'store']);
+    Route::get('/boletines/descarga/{id_boletin}', [boletinesController::class,'descarga'])->middleware(['verified'])->name('boletin.descarga');
 });
