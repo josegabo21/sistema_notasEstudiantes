@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('boletines', function (Blueprint $table) {
             $table->id();
             $table->enum( 'momento',["1","2","3"]);
+            $table->string("grado",length:8);
             $table->string("directorio",length:100)->unique();
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+
         });
     }
 

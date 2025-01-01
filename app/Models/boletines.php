@@ -11,6 +11,7 @@ class boletines extends Model
 
     protected $fillable=[
         "momento",
+        "grado",
         "directorio",
         "student_id"
     ];

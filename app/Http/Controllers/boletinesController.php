@@ -26,8 +26,10 @@ class boletinesController extends Controller
         if($request->hasFile('documento')){
             $boletin=Storage::disk('public')->put('/boletines',$request->file('documento'));
         }
+        $grado=$student->grado;
         $student->boletines()->create([
             'momento'=>$request->momento,
+            'grado'=>$grado,
             'directorio'=>$boletin,
         ]);
         return redirect()->route('profesor.boletin.show',$student->id);
@@ -36,7 +38,7 @@ class boletinesController extends Controller
         $boletin=boletines::find($id_boletin);
         $dirc=$boletin->directorio;
         $student=student::find($boletin->student_id);
-        return Storage::disk('public')->download( $dirc,$student->nombre." ".$student->apellido." ".$boletin->momento);
+        return Storage::disk('public')->download( $dirc,$student->nombre." ".$student->apellido." ".$boletin->momento.".pdf");
          
     }
 }
