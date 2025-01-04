@@ -29,9 +29,7 @@
                 </div>
                 @endforeach
                 <div class="flex justify-center items-center bg-white h-30 rounded-lg px-1">
-                        <a href="{{route('profesor.boletin.create',$student->id)}}">
-                            <svg class="h-20 w-20 text-slate-400 hover:text-black	"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>                          
-                        </a>                             
+                    @include("profesor.calificar.createmodal")                            
                 </div>
                 @else
                     <div class="p-6">
@@ -41,21 +39,7 @@
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex justify-center p-8">
-                    <form action="{{route('profesor.boletin.show', $student->id)}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <label>
-                            Momento: 
-                            <input type="text" name='momento'>
-                        </label>
-                        
-                        <!-- Campo para seleccionar archivo -->
-                        <label for="documento">Selecciona un archivo:</label>
-                        <input type="file" id="documento" name="documento" accept=".pdf" required />
-                        <br />
-                    
-                        <!-- Botón para enviar el formulario -->
-                        <button type="submit">Subir Documento</button>
-                    </form>
+                    @include("profesor.calificar.createmodal")
                 </div>
             </div>       
                 @endif

@@ -45,20 +45,7 @@
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex justify-center p-8">
-                    <form action="{{route('profesor.boletin.show', $student->id)}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <label>
-                            Momento: 
-                            <input type="text" name='momento'>
-                        </label>
-                        <!-- Campo para seleccionar archivo -->
-                        <label for="documento">Selecciona un archivo:</label>
-                        <input type="file" id="documento" name="documento" accept=".pdf" required />
-                        <br />
-                    
-                        <!-- Botón para enviar el formulario -->
-                        <button type="submit">Subir Documento</button>
-                    </form>
+                    @include("profesor.calificar.createmodal")
                 </div>
             </div>       
                 @endif
