@@ -34,15 +34,12 @@ class RegisteredUserController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'edad' => 'required|integer',
-            'grado_asignado' => 'required|string|max:255',
-            'fecha_nacimiento' => 'required|date',
-            'direccion' => 'required|string|max:255',
-            'cedula' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            
         ]);
+
 
         $fotoPath = null;
 
@@ -54,13 +51,25 @@ class RegisteredUserController extends Controller
             $fotoPath = $filename; // Asigna la ruta de la foto
         }
 
-        // Validaciones condicionales
-    if ($request->role === 'representante') {
-        $rules['telefono_representante'] = 'required|string|regex:/^[0-9]{10}$/';
-    } elseif ($request->role === 'profesor') {
-        $rules['telefono_profesor'] = 'required|string|regex:/^[0-9]{10}$/';
-    }
-
+        if ($request->role === 'representante') {
+            $request->validate([
+                'telefono_representante' => 'required|string|regex:/^[0-9]{10}$/',
+                'edad' => 'required|integer',
+                'fecha_nacimiento' => 'required|date',
+                'direccion' => 'required|string|max:255',
+                'cedula' => 'required|string|max:255',
+            ]);
+        } elseif ($request->role === 'profesor') {
+            $request->validate([
+                'edad' => 'required|integer',
+                'fecha_nacimiento' => 'required|date',
+                'direccion' => 'required|string|max:255',
+                'cedula' => 'required|string|max:255',
+                'telefono_profesor' => 'required|string|regex:/^[0-9]{10}$/',
+                'tipo_profesor' => 'required|string|in:regular,deportes',
+                'grado_asignado' => 'string|max:255',
+            ]);
+        }
         switch ($request->role) {
             case 'admin':
                 Admin::create([
@@ -85,6 +94,7 @@ class RegisteredUserController extends Controller
                     'foto' => $fotoPath,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
+                    'tipo_profesor' => $request->tipo_profesor,
                 ]);
                 break;
 
@@ -93,7 +103,6 @@ class RegisteredUserController extends Controller
                     'nombre' => $request->nombre,
                     'apellido' => $request->apellido,
                     'edad' => $request->edad,
-                    'grado_asignado' => $request->grado_asignado,
                     'fecha_nacimiento' => $request->fecha_nacimiento,
                     'direccion' => $request->direccion,
                     'cedula' => $request->cedula,

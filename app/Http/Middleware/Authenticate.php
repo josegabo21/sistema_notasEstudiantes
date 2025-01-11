@@ -120,9 +120,7 @@ class Authenticate implements AuthenticatesRequests
         }
 
         if($request -> routeIs('admin.dashboard')){
-            return route('profesor.login');
-
-            return route('admin.login');
+             return route('admin.login');
         }
 
         if (static::$redirectToCallback) {

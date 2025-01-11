@@ -20,4 +20,5 @@ class student extends Model
         'foto',
     ];
     protected $table = "students";
+    
 }

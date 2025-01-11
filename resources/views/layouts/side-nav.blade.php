@@ -32,7 +32,7 @@
                             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                         </li>
                         <li class="nav-item">
-                          <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                          <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                               <p>
                                   Inicio               
                               </p>
@@ -57,15 +57,15 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('admin.profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Perfil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('admin.logout') }}">
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('admin.logout')"
+                            <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
@@ -81,19 +81,19 @@
     <div class="d-md-none">
     <div class="pt-4 pb-1 border-t border-gray-200">
         <div class="px-4">
-            <div class="font-medium text-base text-gray-800">{{ Auth::user()->nombre }}</div>
+            <div class="font-medium text-base text-gray-800">{{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</div>
             <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
         </div>
 
         <div class="mt-3 space-y-1">
-            <x-responsive-nav-link :href="route('admin.profile.edit')">
+            <x-responsive-nav-link :href="route('profile.edit')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
 
             <!-- Authentication -->
-            <form method="POST" action="{{ route('admin.logout') }}">
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <x-responsive-nav-link :href="route('admin.logout')"
+                <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Log Out') }}
@@ -138,88 +138,23 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-          <x-side :href="route('admin.student.view')" :active="request()->routeIs('admin.student.view')" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>{{ __('Panel estudiantes') }}</p>
-                </x-side>
-          </li>
         
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Grados
+                Estudiantes a cargo
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-                <li class="nav-item">
-              <x-side :href="route('admin.grades.first')" :active="request()->routeIs('admin.grades.first')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('1er Grado') }}</p>
-              </x-side>
-          </li>
           <li class="nav-item">
-              <x-side :href="route('admin.grades.second')" :active="request()->routeIs('admin.grades.second')" class="nav-link">
+              <x-side :href="route('profesor.grades.grade')" :active="request()->routeIs('profesor.grades.grade')" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('2do Grado') }}</p>
+                  <p>Estudiantes</p>
               </x-side>
           </li>
-          <li class="nav-item">
-              <x-side :href="route('admin.grades.third')" :active="request()->routeIs('admin.grades.third')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('3er Grado') }}</p>
-              </x-side>
-          </li>
-          <li class="nav-item">
-              <x-side :href="route('admin.grades.fourth')" :active="request()->routeIs('admin.grades.fourth')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('4to Grado') }}</p>
-              </x-side>
-          </li>
-          <li class="nav-item">
-              <x-side :href="route('admin.grades.fifth')" :active="request()->routeIs('admin.grades.fifth')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('5to Grado') }}</p>
-              </x-side>
-          </li>
-          <li class="nav-item">
-              <x-side :href="route('admin.grades.sixth')" :active="request()->routeIs('admin.grades.sixth')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('6to Grado') }}</p>
-              </x-side>
-          </li>
-            </ul>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Usuarios
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('register') }}" class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}">
-              <i class="far fa-circle nav-icon"></i>
-                <p><span style="font-weight: 500;">Registrar usuario</span></p>
-              </a>
-            </li>
-            <li class="nav-item">
-            <x-side :href="route('admin.usuarios.representante')" :active="request()->routeIs('admin.usuarios.representante')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('Representante') }}</p>
-              </x-side>
-              </li>
-              <li class="nav-item">
-              <x-side :href="route('admin.usuarios.profesor')" :active="request()->routeIs('admin.usuarios.profesor')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('Profesor') }}</p>
-              </x-side>
-              </li>
-            </ul>
-          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

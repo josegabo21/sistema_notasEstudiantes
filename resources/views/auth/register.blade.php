@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed" style="background-image: url('{{ asset('AdminLTE/dist/img/fondo_de_pantalla.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
+<body class="hold-transition sidebar-mini layout-fixed" style="background-image: url('{{ asset('AdminLTE/dist/img/fondo_de_pantalla_login2.jpeg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
 <div class="wrapper"style="margin-top: 15px;">
 
   <!-- Preloader -->
@@ -95,6 +95,16 @@
                                 <input type="number" id="edad" name="edad" class="form-control" min="18" value="{{ old('edad') }}" placeholder="Ingrese la edad" required autocomplete="age">
                             </div>
 
+                             <!-- Tipo de Profesor -->
+                        <div class="form-group" id="tipoProfesorField" style="display: none;">
+                            <label for="tipo_profesor">Tipo de Profesor</label>
+                            <select id="tipo_profesor" name="tipo_profesor" class="form-control" required>
+                                <option value="" disabled selected>{{ __('Seleccione un tipo de profesor') }}</option>
+                                <option value="regular">{{ __('Profesor Regular') }}</option>
+                                <option value="deportes">{{ __('Profesor de Deportes') }}</option>
+                            </select>
+                        </div>
+
                             <!-- Grado Asignado -->
                             <div class="form-group" id="gradoField" style="display: none;">
                                 <label for="grado_asignado">Grado Asignado</label>
@@ -106,9 +116,9 @@
                                     <option value="4to">{{ __('4to Grado') }}</option>
                                     <option value="5to">{{ __('5to Grado') }}</option>
                                     <option value="6to">{{ __('6to Grado') }}</option>
+                                    <option value="Todos los grados">{{ __('Todos los grados') }}</option>
                                 </select>
                             </div>
-
                             <!-- Fecha de Nacimiento -->
                             <div class="form-group" id="fechaNacimientoField" style="display: none;">
                                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
@@ -117,7 +127,7 @@
 
                             <!-- Cédula -->
                             <div class="form-group" id="cedulaField" style="display: none;">
-                                <label for="cedula">Cédula del Estudiante:</label>
+                                <label for="cedula">Cédula:</label>
                                 <input type="text" id="cedula" name="cedula" class="form-control" value="{{ old('cedula') }}" placeholder="ejemplo: 12.345.678" required autocomplete="off">
                             </div>
                             <!-- Dirección -->
@@ -252,6 +262,7 @@
         const direccionField = document.getElementById('direccionField');
         const telefonoRepresentanteField = document.getElementById('telefonoRepresentanteField');
         const telefonoProfesorField = document.getElementById('telefonoProfesorField');
+        const tipoProfesorField = document.getElementById('tipoProfesorField');
 
         // Ocultar todos los campos específicos
         edadField.style.display = 'none';
@@ -261,25 +272,46 @@
         direccionField.style.display = 'none';
         telefonoRepresentanteField.style.display = 'none';
         telefonoProfesorField.style.display = 'none';
+        tipoProfesorField.style.display = 'none';
 
         // Mostrar campos según el rol seleccionado
         if (role === 'admin') {
             // Solo se envían nombre, apellido, email, password y foto
             // No se muestran campos adicionales
+            document.getElementById('edad').required = false;
+        document.getElementById('fecha_nacimiento').required = false;
+        document.getElementById('cedula').required = false;
+        document.getElementById('direccion').required = false;
+        document.getElementById('telefono_representante').required = false;
+        document.getElementById('telefono_profesor').required = false;
+        document.getElementById('tipo_profesor').required = false;
+        document.getElementById('grado_asignado').required = false;
         } else if (role === 'representante') {
             edadField.style.display = 'block';
-            gradoField.style.display = 'block';
             fechaNacimientoField.style.display = 'block';
             cedulaField.style.display = 'block';
             direccionField.style.display = 'block';
             telefonoRepresentanteField.style.display = 'block';
+            document.getElementById('telefono_representante').required = true; // Hacer requerido
+            document.getElementById('telefono_profesor').required = false; // Hacer requerido
+            document.getElementById('tipo_profesor').required = false;
+            document.getElementById('grado_asignado').required = false;
         } else if (role === 'profesor') {
             edadField.style.display = 'block';
             gradoField.style.display = 'block';
+            tipoProfesorField.style.display = 'block';
             fechaNacimientoField.style.display = 'block';
             cedulaField.style.display = 'block';
             direccionField.style.display = 'block';
             telefonoProfesorField.style.display = 'block';
+            document.getElementById('telefono_representante').required = false; // Hacer requerido
+            document.getElementById('telefono_profesor').required = true; // Hacer requerido
+            document.getElementById('edad').required = true;
+        document.getElementById('fecha_nacimiento').required = true;
+        document.getElementById('cedula').required = true;
+        document.getElementById('direccion').required = true;
+        document.getElementById('tipo_profesor').required = true;
+        document.getElementById('grado_asignado').required = true;
         }
     }
 </script>

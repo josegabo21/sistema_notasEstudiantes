@@ -52,7 +52,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Panel - {{ Auth::user()->nombre }}</h1>
+            <h1 class="m-0">Panel - {{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -86,19 +86,7 @@
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3><sup style="font-size: 20px"></sup></h3>
-                        <p>Profesores</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="{{ route('admin.usuarios.profesor') }}" class="small-box-footer">Ver profesores <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+          
             <!-- ./col -->
             <!-- Los dos últimos "small boxes" han sido eliminados -->
         </div>

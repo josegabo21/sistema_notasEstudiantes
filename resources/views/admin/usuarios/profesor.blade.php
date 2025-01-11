@@ -87,6 +87,7 @@
                                         <th scope="col" class="text-center">Edad</th>
                                         <th scope="col" class="text-center">Fecha de Nacimiento</th>
                                         <th scope="col" class="text-center">Grado Asignado</th>
+                                        <th scope="col" class="text-center">Rol asignado</th>
                                         <th scope="col" class="text-center">Direccion</th>
                                         <th scope="col" class="text-center">Telefono</th>
                                         <th scope="col" class="text-center">Opciones</th>
@@ -103,6 +104,7 @@
                                         <td class="text-center">{{$profesor->edad}} {{ __('Años') }}</td>
                                         <td class="text-center">{{ \Carbon\Carbon::parse($profesor->fecha_nacimiento)->format('d/m/Y') }}</td>  
                                         <td class="text-center">{{$profesor->grado_asignado }} {{ __('Grado') }}</td>
+                                        <td class="text-center">{{$profesor->tipo_profesor }}</td>
                                         <td class="text-center">{{$profesor->direccion}}</td>
                                         <td class="text-center"><span class="mr-2">+58</span>{{$profesor->telefono_profesor}}</td>  
                                         <td class="text-center"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#assignGradeModal" data-id="{{ $profesor->id }}" data-nombre="{{ $profesor->nombre }}" data-apellido="{{ $profesor->apellido }}" data-grado="{{ $profesor->grado_asignado }}">
@@ -141,13 +143,14 @@
                     <div class="form-group">
                         <label for="grado_asignado">Grado para <span id="profesorNombre"></span></label>
                         <select id="grado_asignado" name="grados[0][grado_asignado]" class="form-control" required>
-                            <option value="" disabled selected>{{ __('Seleccione un Grado') }}</option>
-                            <option value="1er">{{ __('1er Grado') }}</option>
-                            <option value="2do">{{ __('2do Grado') }}</option>
-                            <option value="3er">{{ __('3er Grado') }}</option>
-                            <option value="4to">{{ __('4to Grado') }}</option>
-                            <option value="5to">{{ __('5to Grado') }}</option>
-                            <option value="6to">{{ __('6to Grado') }}</option>
+                        <option value="" disabled selected>{{ __('Seleccione un Grado') }}</option>
+                                    <option value="1er">{{ __('1er Grado') }}</option>
+                                    <option value="2do">{{ __('2do Grado') }}</option>
+                                    <option value="3er">{{ __('3er Grado') }}</option>
+                                    <option value="4to">{{ __('4to Grado') }}</option>
+                                    <option value="5to">{{ __('5to Grado') }}</option>
+                                    <option value="6to">{{ __('6to Grado') }}</option>
+                                    <option value="Todos los grados">{{ __('Todos los grados') }}</option>
                         </select>
                         <input type="hidden" name="grados[0][id]" id="profesorId" value="">
                     </div>

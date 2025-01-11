@@ -81,7 +81,7 @@
     <div class="d-md-none">
     <div class="pt-4 pb-1 border-t border-gray-200">
         <div class="px-4">
-            <div class="font-medium text-base text-gray-800">{{ Auth::user()->nombre }}</div>
+            <div class="font-medium text-base text-gray-800">{{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</div>
             <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
         </div>
 
@@ -116,7 +116,7 @@
           <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" style="width: 40px; hight: 40px;">
         </div>
         <div class="info">
-          <h1 style="color: white;">{{ Auth::user()->nombre }}</h1>
+          <h1 style="color: white;">{{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</h1>
         </div>
       </div>
 
@@ -155,59 +155,6 @@
               </x-side>
           </li>
             </ul>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Usuarios
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-              <x-side :href="route('admin.usuarios.profesor')" :active="request()->routeIs('admin.usuarios.profesor')" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>{{ __('Profesor') }}</p>
-              </x-side>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Forms
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/validation.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

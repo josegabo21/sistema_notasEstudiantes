@@ -82,6 +82,8 @@ class StudentsController extends Controller
         $students = Student::where('grado', '6to')->get();
         return view('profesor.grades.grade', ['students' => $students, 'grado' => '6to Grado']);
     }
+    
+
     public function create(){
         $routeName = Route::currentRouteName();
         $profile=explode(".",$routeName)[0];
@@ -113,7 +115,7 @@ class StudentsController extends Controller
     $student->nombre = $request->input('nombre');
     $student->apellido = $request->input('apellido');
     $student->edad = $request->input('edad');
-    $student->grado = $request->input('grado');
+    $student->grado = $request->input('grado') === 'Todos los grados' ? '1er, 2do, 3er, 4to, 5to, 6to' : $request->input('grado');
     $student->fecha_nacimiento = $request->input('fecha_nacimiento');
     $student->direccion = $request->input('direccion');
     $student->telefono_representante = $request->input('telefono_representante');
@@ -189,14 +191,26 @@ class StudentsController extends Controller
 
     }
 
-    public function grade()
-    {
-        $profesor = auth()->user(); // Obtener el profesor autenticado
-    
-        // Obtener estudiantes del grado asignado al profesor
-        $students = Student::where('grado', $profesor->grado_asignado)->get();
-    
-        return view('profesor.grades.grade', compact('students'));
+    public function grade($grado = null)
+{
+    $profesor = auth()->user(); // Obtener el profesor autenticado
+
+    // Inicializar un array para almacenar los estudiantes por grado
+    $studentsByGrade = [];
+
+    // Obtener estudiantes del grado asignado al profesor
+    if ($profesor->grado_asignado === 'Todos los grados') {
+        // Obtener estudiantes de cada grado, incluyendo "Deportes" y "Regular"
+        $grades = [ '1er', '2do', '3er', '4to', '5to', '6to'];
+        foreach ($grades as $grade) {
+            $studentsByGrade[$grade] = Student::where('grado', $grade)->get();
+        }
+    } else {
+        // Solo obtener estudiantes del grado asignado
+        $studentsByGrade[$profesor->grado_asignado] = Student::where('grado', $profesor->grado_asignado)->get();
     }
+
+    return view('profesor.grades.grade', compact('studentsByGrade'));
+}
 
 }

@@ -15,10 +15,11 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition login-page" style="background-image: url('{{ asset('AdminLTE/dist/img/fondo_de_pantalla.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
+<body class="hold-transition login-page" style="background-image: url('/AdminLTE/dist/img/fondo_de_pantalla_login2.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
 <div class="login-box">
-  <div class="login-logo">
-    <img src="{{ asset('AdminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .9">
+  <div class="login-logo" style="margin-bottom: 0px;">
+ 
+    <img src="/AdminLTE/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle" style="opacity: .9 width: 200px; height: 180px;">
   </div>
   <!-- /.login-logo -->
   <div class="card" style="opacity: .9">

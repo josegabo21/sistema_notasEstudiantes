@@ -70,58 +70,88 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row justify-content-center">
-          <div class="col-md-15">
-            <div class="table-responsive mt-4">
-                <div class="bg-white p-3 rounded">
-                <div style="overflow-x: auto;">
-                    <table id="studentsTable" class="table table-striped" style="width:100%">
-                    <div>
-                            </div>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Nombre</th>
-                                <th scope="col" class="text-center">Apellido</th>
-                                <th scope="col" class="text-center">Edad</th>
-                                <th scope="col" class="text-center">Grado</th>
-                                <th scope="col" class="text-center">Fecha de Nacimiento</th>
-                                <th scope="col" class="text-center">Cédula</th>
-                                <th scope="col" class="text-center">Dirección</th>
-                                <th scope="col" class="text-center">Teléfono del representante</th>                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($students as $student)
-                            <tr>
-                                <td class="text-center">{{ $student->nombre }}</td>
-                                <td class="text-center">{{ $student->apellido }}</td>
-                                <td class="text-center">{{ $student->edad }} {{ __('Años') }}</td>
-                                <td class="text-center">{{ $student->grado }} {{ __('Grado') }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($student->fecha_nacimiento)->format('d/m/Y') }}</td>
-                                <td class="text-center">{{ $student->cedula ? $student->cedula : 'No aplica' }}</td>
-                                <td class="text-center">{{ $student->direccion }}</td>
-                                <td class="text-center"><span class="mr-2">+58</span>{{ $student->telefono_representante }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+    <div class="container-fluid">
+        <div class="row mb-3">
+            @if (auth()->user()->grado_asignado === 'Todos los grados')
+                @foreach ($studentsByGrade as $grado => $students)
+                    <div class="col-md-2">
+                        <button class="btn btn-primary toggle-table w-100" data-grade="{{ $grado }}">{{ $grado }} Grado</button>
                     </div>
+                @endforeach
+            @endif
+        </div>
+        <div class="row">
+            @foreach ($studentsByGrade as $grado => $students)
+                <div class="col-md-12">
+                    @if (auth()->user()->grado_asignado === 'Todos los grados')
+                        <div class="bg-white p-3 rounded mt-4 grade-table" id="table-{{ $grado }}" style="display: none;">
+                            <table id="studentsTable-{{ $grado }}" class="table table-striped" style="width:100%">
+                              
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Nombre</th>
+                                        <th scope="col" class="text-center">Apellido</th>
+                                        <th scope="col" class="text-center">Edad</th>
+                                        <th scope="col" class="text-center">Grado</th>
+                                        <th scope="col" class="text-center">Fecha de Nacimiento</th>
+                                        <th scope="col" class="text-center">Cédula</th>
+                                        <th scope="col" class="text-center">Dirección</th>
+                                        <th scope="col" class="text-center">Teléfono del representante</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($students as $student)
+                                        <tr>
+                                            <td class="text-center">{{ $student->nombre }}</td>
+                                            <td class="text-center">{{ $student->apellido }}</td>
+                                            <td class="text-center">{{ $student->edad }} {{ __('Años') }}</td>
+                                            <td class="text-center">{{ $student->grado }} {{ __('Grado') }}</td>
+                                            <td class="text-center">{{ \Carbon\Carbon::parse($student->fecha_nacimiento)->format('d/m/Y') }}</td>
+                                            <td class="text-center">{{ $student->cedula ? $student->cedula : 'No aplica' }}</td>
+                                            <td class="text-center">{{ $student->direccion }}</td>
+                                            <td class="text-center"><span class="mr-2">+58</span>{{ $student->telefono_representante }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="bg-white p-3 rounded mt-4">
+                            <table id="studentsTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Nombre</th>
+                                        <th scope="col" class="text-center">Apellido</th>
+                                        <th scope="col" class="text-center">Edad</th>
+                                        <th scope="col" class="text-center">Grado</th>
+                                        <th scope="col" class="text-center">Fecha de Nacimiento</th>
+                                        <th scope="col" class="text-center">Cédula</th>
+                                        <th scope="col" class="text-center">Dirección</th>
+                                        <th scope="col" class="text-center">Teléfono del representante</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($students as $student)
+                                        <tr>
+                                            <td class="text-center">{{ $student->nombre }}</td>
+                                            <td class="text-center">{{ $student->apellido }}</td>
+                                            <td class="text-center">{{ $student->edad }} {{ __('Años') }}</td>
+                                            <td class="text-center">{{ $student->grado }} {{ __('Grado') }}</td>
+                                            <td class="text-center">{{ \Carbon\Carbon::parse($student->fecha_nacimiento)->format('d/m/Y') }}</td>
+                                            <td class="text-center">{{ $student->cedula ? $student->cedula : 'No aplica' }}</td>
+                                            <td class="text-center">{{ $student->direccion }}</td>
+                                            <td class="text-center"><span class="mr-2">+58</span>{{ $student->telefono_representante }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
-            </div>
-        </tbody>   
-    </table>
+            @endforeach
+        </div>
     </div>
- </div>
-</div>
-<!-- ./col -->
-</div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
+</section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -174,24 +204,62 @@
 
 <script>
  $(document).ready(function() {
-    $('#studentsTable').DataTable({
-        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "Todos"]],
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ entradas por página",
-            "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
-            "infoFiltered": "(filtrado de _MAX_ entradas totales)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        }
+        // Inicializar DataTables para cada tabla de grado
+        @if (auth()->user()->grado_asignado === 'Todos los grados')
+            @foreach ($studentsByGrade as $grado => $students)
+                $('#studentsTable-{{ $grado }}').DataTable({
+                    "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "Todos"]],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ entradas por página",
+                        "zeroRecords": "No se encontraron resultados",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                        "infoFiltered": "(filtrado de _MAX_ entradas totales)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                });
+            @endforeach
+        @else
+            $('#studentsTable').DataTable({
+                "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "Todos"]],
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ entradas por página",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                    "infoFiltered": "(filtrado de _MAX_ entradas totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        @endif
+
+        // Lógica para mostrar/ocultar tablas
+        $('.toggle-table').click(function() {
+            var grade = $(this).data('grade');
+            // Oculta todas las tablas
+            $('.grade-table').hide();
+            // Muestra la tabla correspondiente
+            $('#table-' + grade).toggle();
+
+            // Remueve las clases de todos los botones
+            $('.toggle-table').removeClass('btn-light shadow').addClass('btn-primary');
+            // Agrega las clases al botón que fue clickeado
+            $(this).removeClass('btn-primary').addClass('btn-light shadow');
+        });
     });
-});
+
 </script>
 
 <script>

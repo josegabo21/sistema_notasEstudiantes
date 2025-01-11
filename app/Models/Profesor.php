@@ -30,6 +30,7 @@ class Profesor extends Authenticatable
         'foto',
         'email',
         'password',
+        'tipo_profesor',
     ];
 
     /**

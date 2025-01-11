@@ -17,7 +17,6 @@ return new class extends Migration
                 $table->string('nombre');
                 $table->string('apellido');
                 $table->integer('edad');
-                $table->string('grado_asignado');
                 $table->date('fecha_nacimiento');
                 $table->string('cedula')->nullable();
                 $table->string('direccion');
@@ -25,6 +24,7 @@ return new class extends Migration
                 $table->string('foto')->nullable();
                 $table->string('email')->unique();
                 $table->string('password');
+                
                 $table->timestamps();
             });
         }

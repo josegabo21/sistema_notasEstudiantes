@@ -87,7 +87,6 @@
                                         <th scope="col" class="text-center">Cedula</th>
                                         <th scope="col" class="text-center">Edad</th>
                                         <th scope="col" class="text-center">Fecha de Nacimiento</th>
-                                        <th scope="col" class="text-center">Grado Asignado</th>
                                         <th scope="col" class="text-center">Direccion</th>
                                         <th scope="col" class="text-center">Telefono</th>
 
@@ -102,7 +101,6 @@
                                         <td class="text-center">{{$user->cedula}}</td>
                                         <td class="text-center">{{$user->edad}} {{ __('Años') }}</td>
                                         <td class="text-center">{{ \Carbon\Carbon::parse($user->fecha_nacimiento)->format('d/m/Y') }}</td>  
-                                        <td class="text-center">{{$user->grado_asignado }} {{ __('Grado') }}</td>
                                         <td class="text-center">{{$user->direccion}}</td>
                                         <td class="text-center"><span class="mr-2">+58</span>{{$user->telefono_representante}}</td>  
                                         </tr>

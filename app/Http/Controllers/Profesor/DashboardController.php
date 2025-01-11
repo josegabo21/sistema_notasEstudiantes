@@ -19,9 +19,16 @@ class DashboardController extends Controller
         $totalProfesores = Profesor::count();
         // Obtener el total de representantes
         $totalRepresentantes = User::count(); // Asegúrate de que esto sea correcto según tu modelo
+        
+       // Contar estudiantes según el grado asignado
+    if ($profesor->grado_asignado === 'Todos los grados') {
+        // Contar todos los estudiantes
+        $totalEstudiantes = Student::count();
+    } else {
+        // Contar solo los estudiantes del grado asignado
+        $totalEstudiantes = Student::where('grado', $profesor->grado_asignado)->count();
+    }
 
-        $totalEstudiantes = student::where('grado', $profesor->grado_asignado)->count();
-        // Retornar la vista del dashboard con las variables
         return view('profesor.dashboard', compact('totalProfesores', 'totalRepresentantes', 'totalEstudiantes'));
     }
 }
