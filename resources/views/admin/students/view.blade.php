@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>StudyChard | Panel estudiantes</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -53,14 +53,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Lista de estudiantes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"> <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
                       {{ __('Inicio') }}
                     </x-nav-link></li>
-              <li class="breadcrumb-item active">Lista estudiantes</li>
+              <li class="breadcrumb-item active">Panel estudiantes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -73,7 +72,7 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row justify-content-center">
-          <div class="col-md-10">
+          <div class="col-md-15">
             <div class="table-responsive mt-4">
             <div class="bg-white p-3 rounded">
                             <table id="studentsTable" class="table table-striped" style="width:100%">
@@ -84,23 +83,30 @@
                             </div>
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">Nombre</th>
-                                        <th scope="col" class="text-center">Apellido</th>
+                                        <th scope="col" class="text-center">Nombre y Apellido</th>
                                         <th scope="col" class="text-center">Edad</th>
                                         <th scope="col" class="text-center">Grado</th>
+                                        <th scope="col" class="text-center">Representante</th>
                                         <th scope="col" class="text-center">Opciones</th>
                                     </tr>
                                 </thead> 
                                 <tbody>
                                     @foreach ($students as $student)
                                     <tr>
-                                        <td class="text-center">{{$student->nombre}}</td>
-                                        <td class="text-center">{{$student->apellido}}</td>
+                                        <td class="text-center">{{$student->nombre}} {{$student->apellido}}</td>
                                         <td class="text-center">{{$student->edad}} {{ __('Años') }}</td>
                                         <td class="text-center">{{$student->grado}} {{ __('Grado') }}</td>
                                         <td class="text-center">
+                                            @if($student->representante)
+                                                {{ $student->representante->nombre }} {{ $student->representante->apellido }}
+                                            @else
+                                                No asignado
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
                                         <form method="POST" action="{{ route('admin.student.destroy', $student) }}" id="delete-form-{{ $student->id }}">
                                             <a class="btn btn-info" href="{{ route('admin.student.show', $student->id) }}">Ver más</a>
+                                            <button type="button" class="btn btn-warning" onclick="openAssignModal({{ $student->id }})">Asignar Representante</button>
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger" type="button" onclick="confirmDelete({{ $student->id }})">Eliminar Estudiante</button>
@@ -120,6 +126,35 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="assignRepresentativeModal" tabindex="-1" role="dialog" aria-labelledby="assignRepresentativeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignRepresentativeModalLabel">Asignar Representante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="assignRepresentativeForm" method="POST">
+                    @csrf
+                    <input type="hidden" name="student_id" id="student_id">
+                    <div class="form-group">
+                        <label for="representante_id">Seleccionar Representante</label>
+                        <select name="representante_id" id="representante_id" class="form-control">
+                            @foreach($users as $user) <!-- Cambié $representante a $user -->
+                                <option value="{{ $user->id }}">{{ $user->nombre }} {{ $user->apellido }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Asignar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -208,6 +243,26 @@
         }
     });
 }
+
+function openAssignModal(studentId) {
+    // Establecer el ID del estudiante en el campo oculto del formulario
+    document.getElementById('student_id').value = studentId;
+
+    // Mostrar el modal
+    $('#assignRepresentativeModal').modal('show');
+}
+
+// Manejar el envío del formulario
+document.getElementById('assignRepresentativeForm').onsubmit = function(event) {
+    event.preventDefault(); // Evitar el envío normal del formulario
+
+    // Obtener el ID del estudiante
+    const studentId = document.getElementById('student_id').value;
+
+    // Enviar el formulario usando AJAX o redirigir a la ruta de asignación
+    this.action = `/admin/student/${studentId}/assign`; // Asegúrate de que esta ruta sea correcta
+    this.submit(); // Enviar el formulario
+};
 </script>
 </body>
 </html>

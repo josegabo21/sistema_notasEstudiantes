@@ -33,6 +33,9 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Agrega la ruta para actualizar la contraseña
+    Route::patch('/password', [PasswordController::class, 'update'])->name('password.update');
     
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
@@ -63,6 +66,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/usuarios/asignar-grados', [AdminUserProfesorController::class, 'showAsignarGrados'])->name('usuarios.asignar_grados');
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::post('/student/{student}/assign', [studentsController::class, 'assignRepresentative'])->name('student.assign');
 });
 
 

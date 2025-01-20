@@ -54,4 +54,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'representante_id'); // Asegúrate de que el campo en la tabla students sea 'representante_id'
+    }
 }

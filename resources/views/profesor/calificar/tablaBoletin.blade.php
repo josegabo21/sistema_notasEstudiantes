@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StudyChard | Lista Representante</title>
+  <title>StudyChard | Boletin</title>
   <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -44,7 +44,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('admin.layouts.side-nav')
+  @include('profesor.layouts.side-nav')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -59,7 +59,7 @@
               <li class="breadcrumb-item"> <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
                       {{ __('Inicio') }}
                     </x-nav-link></li>
-              <li class="breadcrumb-item active">Lista de representante</li>
+              <li class="breadcrumb-item active">Lista de estudiantes - Boletin</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -69,46 +69,51 @@
 
     <!-- Main content -->
     <section class="content">
-    <section class="content">
       <div class="container-fluid">
-      <div class="row justify-content-center">
         <!-- Small boxes (Stat box) -->
-        <div class="col-md-25">
+        <div class="row justify-content-center">
+          <div class="col-md-15">
             <div class="table-responsive mt-4">
-                <div class="bg-white p-4 rounded">
-                <div style="overflow-x: auto;">
+            @foreach ($studentsByGrade as $grado => $students)
+            <div class="bg-white p-3 rounded">
                             <table id="studentsTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th scope="col" class="text-center">Nombre y Apellido</th>
-                                        <th scope="col" class="text-center">Correo</th>
-                                        <th scope="col" class="text-center">Cedula</th>
                                         <th scope="col" class="text-center">Edad</th>
-                                        <th scope="col" class="text-center">Fecha de Nacimiento</th>
-                                        <th scope="col" class="text-center">Direccion</th>
-                                        <th scope="col" class="text-center">Telefono</th>
-
+                                        <th scope="col" class="text-center">Grado</th>
+                                        <th scope="col" class="text-center">Momentos</th>
                                     </tr>
                                 </thead> 
                                 <tbody>
-                                @foreach ($users as $user)
+                                    @foreach ($students as $student)
                                     <tr>
-                                        <td class="text-center">{{$user->nombre}} {{$user->apellido}}</td>
-                                        <td class="text-center">{{$user->email}}</td>
-                                        <td class="text-center">{{$user->cedula}}</td>
-                                        <td class="text-center">{{$user->edad}} {{ __('Años') }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->fecha_nacimiento)->format('d/m/Y') }}</td>  
-                                        <td class="text-center">{{$user->direccion}}</td>
-                                        <td class="text-center"><span class="mr-2">+58</span>{{$user->telefono_representante}}</td>  
-                                        </tr>
+                                        <td class="text-center">{{$student->nombre}} {{$student->apellido}}</td>
+                                        <td class="text-center">{{$student->edad}} {{ __('Años') }}</td>
+                                        <td class="text-center">{{$student->grado}} {{ __('Grado') }}</td>
+                                        <td class="text-center flex justify-center items-center">
+                                        <a href="{{ route('profesor.boletin.show', $student->id) }}">
+                                            <svg class="h-8 w-8 text-gray-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <path d="M9 4h3l2 2h5a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                                                <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h2" />
+                                            </svg>
+                                        </a>
+                                    </td>                         
+                                    </tr>
                                     @endforeach
                                 </tbody>   
                             </table>
-                            </div>
                           </div>
+                          @endforeach
                         </div>
                     </div>
-                </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
@@ -201,7 +206,3 @@
 </script>
 </body>
 </html>
-
-
-    
-

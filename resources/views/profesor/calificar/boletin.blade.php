@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StudyChard | Lista Representante</title>
+  <title>StudyChard | Añadir boletin</title>
   <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,7 +25,7 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.css') }}">
-  <!-- dataTables -->
+    <!-- dataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
@@ -44,7 +43,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('admin.layouts.side-nav')
+  @include('profesor.layouts.side-nav')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -56,10 +55,10 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"> <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
+              <li class="breadcrumb-item"> <x-nav-link :href="route('profesor.dashboard')" :active="request()->routeIs('dashboard')">
                       {{ __('Inicio') }}
                     </x-nav-link></li>
-              <li class="breadcrumb-item active">Lista de representante</li>
+              <li class="breadcrumb-item active">Añadir boletin - {{$student->nombre}} {{$student->apellido}}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -69,47 +68,49 @@
 
     <!-- Main content -->
     <section class="content">
-    <section class="content">
-      <div class="container-fluid">
-      <div class="row justify-content-center">
-        <!-- Small boxes (Stat box) -->
-        <div class="col-md-25">
-            <div class="table-responsive mt-4">
-                <div class="bg-white p-4 rounded">
-                <div style="overflow-x: auto;">
-                            <table id="studentsTable" class="table table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="text-center">Nombre y Apellido</th>
-                                        <th scope="col" class="text-center">Correo</th>
-                                        <th scope="col" class="text-center">Cedula</th>
-                                        <th scope="col" class="text-center">Edad</th>
-                                        <th scope="col" class="text-center">Fecha de Nacimiento</th>
-                                        <th scope="col" class="text-center">Direccion</th>
-                                        <th scope="col" class="text-center">Telefono</th>
-
-                                    </tr>
-                                </thead> 
-                                <tbody>
-                                @foreach ($users as $user)
-                                    <tr>
-                                        <td class="text-center">{{$user->nombre}} {{$user->apellido}}</td>
-                                        <td class="text-center">{{$user->email}}</td>
-                                        <td class="text-center">{{$user->cedula}}</td>
-                                        <td class="text-center">{{$user->edad}} {{ __('Años') }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->fecha_nacimiento)->format('d/m/Y') }}</td>  
-                                        <td class="text-center">{{$user->direccion}}</td>
-                                        <td class="text-center"><span class="mr-2">+58</span>{{$user->telefono_representante}}</td>  
-                                        </tr>
-                                    @endforeach
-                                </tbody>   
-                            </table>
-                            </div>
-                          </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white shadow-sm sm:rounded-lg">
+                <div class="flex flex-wrap gap-2 p-4">
+                @if ($boletines->count())
+                @foreach ($boletines as $boletin)
+                <div class="relative bg-white hover:bg-sky-600/25 h-30 rounded-lg px-8">
+                    <div class="absolute top-2 right-2">
+                        <a href="{{route('profesor.boletin.descarga',$boletin->id)}}">
+                            <svg class="h-5 w-5 text-gray-900"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg></a>                              
+                    </div>
+                    <div class=" flex flex-col justify-center items-center h-full">
+                        <svg class="h-20 w-20 text-slate-800"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />  <polyline points="14 2 14 8 20 8" />  <line x1="16" y1="13" x2="8" y2="13" />  <line x1="16" y1="17" x2="8" y2="17" />  <polyline points="10 9 9 9 8 9" /></svg>
+                        <div class="text-slate-950 font-semibold">
+                            Lapso {{$boletin->momento}} 
                         </div>
                     </div>
+
+
                 </div>
-    </section>
+                @endforeach
+                <div class="flex justify-center items-center bg-white h-30 rounded-lg px-1">
+                    @include("profesor.calificar.createmodal")                            
+                </div>
+                @else
+                    <div class="p-6">
+                        No se encuentran Boletines
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="flex justify-center p-8">
+                    @include("profesor.calificar.createmodal")
+                </div>
+            </div>       
+                @endif
+
+        </div>
+    </div>
+
+</section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -153,55 +154,6 @@
 <script src="{{ asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
-<!-- dataTables -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-<!--SweetAlert-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
- $(document).ready(function() {
-    $('#studentsTable').DataTable({
-        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "Todos"]],
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ entradas por página",
-            "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
-            "infoFiltered": "(filtrado de _MAX_ entradas totales)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        }
-    });
-});
-</script>
-
-<script>
-    function confirmDelete(studentId) {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡No podrás revertir esto!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminarlo!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('delete-form-' + studentId).submit();
-        }
-    });
-}
-</script>
 </body>
 </html>
-
-
-    
 

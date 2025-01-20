@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>StudyChard | Inicio Profesor</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.css') }}">
     <!-- dataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
 
@@ -52,7 +53,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Panel - {{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -72,23 +72,40 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>{{$totalEstudiantes}}</h3>
-                        <p>Estudiantes</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{ route('profesor.grades.grade') }}" class="small-box-footer">Ver Estudiantes <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+              <div class="inner">
+              <h3>{{$totalEstudiantes}}</h3>
+              <p>Estudiantes</p>
+              </div>
+              <div class="icon">
+              <i class="fas fa-user-graduate"></i>
+              </div>
+              <a href="{{ route('profesor.grades.grade') }}" class="small-box-footer">Ver estudiantes <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <!-- ./col -->
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+              <div class="inner">
+                
+                <h3>Boletin</h3>
+
+                <p>Boletines estudiantes</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <a href="{{ route('profesor.calificar.tablaBoletin') }}" class="small-box-footer">Ver boletin <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          </div>
+          <!-- ./col -->
           
-            <!-- ./col -->
-            <!-- Los dos últimos "small boxes" han sido eliminados -->
+          <!-- ./col -->
         </div>
         <!-- /.row -->
         <!-- Main row -->

@@ -68,7 +68,7 @@
                             <x-dropdown-link :href="route('admin.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Cerrar Sesion') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -87,7 +87,7 @@
 
         <div class="mt-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.profile.edit')">
-                {{ __('Profile') }}
+                {{ __('Perfil') }}
             </x-responsive-nav-link>
 
             <!-- Authentication -->
@@ -96,7 +96,7 @@
                 <x-responsive-nav-link :href="route('admin.logout')"
                         onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                    {{ __('Log Out') }}
+                    {{ __('Cerrar Sesion') }}
                 </x-responsive-nav-link>
             </form>
         </div>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Atom | Editar estudiantes</title>
-
+  <title>StudyChard | Ver estudiantes</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -52,14 +52,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Editar estudiantes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"> <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
                       {{ __('Inicio') }}
                     </x-nav-link></li>
-              <li class="breadcrumb-item active">Editar estudiantes</li>
+              <li class="breadcrumb-item active">Ver estudiantes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -84,12 +83,8 @@
                   <img src="{{ asset('images/' . $student->foto) }}" alt="Foto del Estudiante" class="rounded-circle mx-auto d-block" style="width: 100px; height: 100px;">
               </div>
               <div class="mb-3 text-center">
-                  <strong>Nombre:</strong>
-                  <span class="ml-2">{{ $student->nombre }}</span>
-              </div>
-              <div class="mb-3 text-center">
-                  <strong>Apellido:</strong>
-                  <span class="ml-2">{{ $student->apellido }}</span>
+                  <strong>Nombre y Apellido:</strong>
+                  <span class="ml-2">{{ $student->nombre }} {{ $student->apellido }}</span>
               </div>
               <div class="mb-3 text-center">
                   <strong>Edad:</strong>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Registrar usuario</title>
-
+  <title>StudyChard | Registrar usuario</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -19,11 +19,11 @@
 <div class="login-box">
   <div class="login-logo" style="margin-bottom: 0px;">
  
-    <img src="/AdminLTE/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle" style="opacity: .9 width: 200px; height: 180px;">
+    <img src="/AdminLTE/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle" style="opacity: .9 width: 200px; height: 150px;">
   </div>
   <!-- /.login-logo -->
-  <div class="card" style="opacity: .9">
-    <div class="card-body login-card-body">
+  <div class="card card-body login-card-body" style="opacity: .9; border-radius: 15px;">
+    <p>SISTEMA DE GESTION DE NOTAS<p>
 
       <!-- Session Status -->
 

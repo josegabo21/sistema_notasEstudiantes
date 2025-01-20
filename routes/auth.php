@@ -58,5 +58,6 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-        Route::get('/estudiantes', [StudentsController::class, 'getEstudiantesPorGrado']);
+    Route::get('/estudiantes', [StudentsController::class, 'getEstudiantesPorGrado']);
+
 });

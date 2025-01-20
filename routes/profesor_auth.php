@@ -3,7 +3,8 @@
 use App\Http\Controllers\Profesor\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Profesor\Auth\RegisteredUserController;
 use App\Http\Controllers\Profesor\ProfileController;
-use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\StudentsController; 
+use App\Http\Controllers\boletinesController;
 use App\Http\Controllers\PlanificacionController;
 use App\Http\Controllers\Profesor\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,12 @@ Route::middleware('auth:profesor')->prefix('profesor')->name('profesor.')->group
 
     Route::get('/grades/grade', [StudentsController::class, 'grade'])->name('grades.grade');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    //Alexander
+    Route::get('create_student',[studentsController::class,'create'])->name('student.create');
+    Route::get('/calificar/tablaBoletin',[studentsController::class,'boletin'])->name('calificar.tablaBoletin');
+    Route::get('/boletines/{id_student}', [boletinesController::class,'show'])->middleware(['verified'])->name('boletin.show');
+    Route::get('/boletines/{id_student}/create', [boletinesController::class,'create'])->middleware(['verified'])->name('boletin.create');
+    Route::post('/boletines/{id_student}',[boletinesController::class,'store']);
+    Route::get('/boletines/descarga/{id_boletin}', [boletinesController::class,'descarga'])->middleware(['verified'])->name('boletin.descarga');
 });

@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>StudyChard | Estudiantes {{ auth()->user()->grado_asignado }} {{ __('Grado') }}</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -53,14 +53,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Estudiantes de {{ auth()->user()->grado_asignado }} {{ __('Grado') }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"> <x-nav-link :href="route('profesor.dashboard')" :active="request()->routeIs('dashboard')">
                       {{ __('Inicio') }}
                     </x-nav-link></li>
-              <li class="breadcrumb-item active">Lista estudiantes</li>
+              <li class="breadcrumb-item active">Estudiantes {{ auth()->user()->grado_asignado }} {{ __('Grado') }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -89,8 +88,7 @@
                               
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">Nombre</th>
-                                        <th scope="col" class="text-center">Apellido</th>
+                                        <th scope="col" class="text-center">Nombre y Apellido</th>
                                         <th scope="col" class="text-center">Edad</th>
                                         <th scope="col" class="text-center">Grado</th>
                                         <th scope="col" class="text-center">Fecha de Nacimiento</th>
@@ -102,8 +100,7 @@
                                 <tbody>
                                     @foreach ($students as $student)
                                         <tr>
-                                            <td class="text-center">{{ $student->nombre }}</td>
-                                            <td class="text-center">{{ $student->apellido }}</td>
+                                            <td class="text-center">{{ $student->nombre }} {{ $student->apellido }}</td>
                                             <td class="text-center">{{ $student->edad }} {{ __('Años') }}</td>
                                             <td class="text-center">{{ $student->grado }} {{ __('Grado') }}</td>
                                             <td class="text-center">{{ \Carbon\Carbon::parse($student->fecha_nacimiento)->format('d/m/Y') }}</td>
@@ -120,8 +117,7 @@
                             <table id="studentsTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">Nombre</th>
-                                        <th scope="col" class="text-center">Apellido</th>
+                                    <th scope="col" class="text-center">Nombre y Apellido</th>
                                         <th scope="col" class="text-center">Edad</th>
                                         <th scope="col" class="text-center">Grado</th>
                                         <th scope="col" class="text-center">Fecha de Nacimiento</th>
@@ -133,8 +129,7 @@
                                 <tbody>
                                     @foreach ($students as $student)
                                         <tr>
-                                            <td class="text-center">{{ $student->nombre }}</td>
-                                            <td class="text-center">{{ $student->apellido }}</td>
+                                            <td class="text-center">{{ $student->nombre }} {{ $student->apellido }}</td>
                                             <td class="text-center">{{ $student->edad }} {{ __('Años') }}</td>
                                             <td class="text-center">{{ $student->grado }} {{ __('Grado') }}</td>
                                             <td class="text-center">{{ \Carbon\Carbon::parse($student->fecha_nacimiento)->format('d/m/Y') }}</td>

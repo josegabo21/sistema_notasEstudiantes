@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>StudyChard | Inicio Admin</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/css/ionicons.min.css">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -52,7 +53,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Panel - {{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -81,7 +81,7 @@
                 <p>Representantes</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+              <i class="fas fa-user-friends"></i>
               </div>
               <a href="{{ route('admin.usuarios.representante') }}" class="small-box-footer">Ver representantes <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -89,7 +89,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-purple">
               <div class="inner">
                 
                 <h3>{{ $totalProfesores }}<sup style="font-size: 20px"></sup></h3>
@@ -97,7 +97,7 @@
                 <p>profesores</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+              <i class="fas fa-chalkboard-teacher"></i>
               </div>
               <a href="{{ route('admin.usuarios.profesor') }}" class="small-box-footer">Ver profesores <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -105,13 +105,13 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-blue">
               <div class="inner">
                 <h3>{{$totalEstudiantes}}</h3>
                 <p>Estudiantes</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+              <i class="fas fa-user-graduate"></i>
               </div>
               <a href="{{ route('admin.student.view') }}" class="small-box-footer">Ver estudiantes <i class="fas fa-arrow-circle-right"></i></a>
             </div>

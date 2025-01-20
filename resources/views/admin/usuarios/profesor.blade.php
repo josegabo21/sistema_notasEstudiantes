@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>StudyChard | Lista profesores</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -53,7 +53,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Lista de estudiantes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -80,8 +79,7 @@
                             <table id="studentsTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">Nombre</th>
-                                        <th scope="col" class="text-center">Apellido</th>
+                                        <th scope="col" class="text-center">Nombre y Apellido</th>
                                         <th scope="col" class="text-center">Correo</th>
                                         <th scope="col" class="text-center">Cedula</th>
                                         <th scope="col" class="text-center">Edad</th>
@@ -97,8 +95,7 @@
                                 <tbody>
                                     @foreach ($profesores as $profesor)
                                     <tr>
-                                        <td class="text-center">{{$profesor->nombre}}</td>
-                                        <td class="text-center">{{$profesor->apellido}}</td> 
+                                        <td class="text-center">{{$profesor->nombre}} {{$profesor->apellido}}</td>
                                         <td class="text-center">{{$profesor->email}}</td>
                                         <td class="text-center">{{$profesor->cedula}}</td>
                                         <td class="text-center">{{$profesor->edad}} {{ __('Años') }}</td>

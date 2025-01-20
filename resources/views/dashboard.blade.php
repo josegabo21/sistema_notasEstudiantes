@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>StudyChard | Inicio Representante</title>
+  <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -52,7 +52,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Panel - {{ Auth::user()->nombre }} {{ Auth::user()->apellido }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -74,15 +73,15 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-blue">
                     <div class="inner">
-                        <h3>0</h3>
-                        <p>Estudiantes a cargo</p>
+                        <h3>Jose Rivas</h3>
+                        <p>Materias</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                    <i class="fas fa-book"></i>
                     </div>
-                    <a href="{{ route('profesor.grades.grade') }}" class="small-box-footer">Ver Estudiantes <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('profesor.grades.grade') }}" class="small-box-footer">Ver Materias <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

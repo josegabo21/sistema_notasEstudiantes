@@ -21,6 +21,9 @@ return new class extends Migration
                 $table->string('cedula')->nullable();
                 $table->string('direccion');
                 $table->string('telefono_representante');
+                $table->foreignId('profesor_id')->nullable()->onDelete('cascade');
+                $table->foreignId('student_id')->nullable()->onDelete('cascade');
+                $table->string('grado_asignado')->nullable();
                 $table->string('foto')->nullable();
                 $table->string('email')->unique();
                 $table->string('password');

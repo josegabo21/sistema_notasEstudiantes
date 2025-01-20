@@ -21,4 +21,12 @@ class student extends Model
     ];
     protected $table = "students";
     
+    public function representante()
+    {
+        return $this->belongsTo(User::class, 'representante_id');
+    }
+
+    public function boletines(){
+        return $this->hasMany(boletines::class);
+    }
 }

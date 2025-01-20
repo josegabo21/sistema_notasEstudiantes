@@ -68,7 +68,7 @@
                             <x-dropdown-link :href="route('profesor.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Cerrar Sesión') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -87,7 +87,7 @@
 
         <div class="mt-3 space-y-1">
             <x-responsive-nav-link :href="route('profesor.profile.edit')">
-                {{ __('Profile') }}
+                {{ __('Perfil') }}
             </x-responsive-nav-link>
 
             <!-- Authentication -->
@@ -96,7 +96,7 @@
                 <x-responsive-nav-link :href="route('profesor.logout')"
                         onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                    {{ __('Log Out') }}
+                    {{ __('Cerrar Sesión') }}
                 </x-responsive-nav-link>
             </form>
         </div>
@@ -152,6 +152,22 @@
               <x-side :href="route('profesor.grades.grade')" :active="request()->routeIs('profesor.grades.grade')" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>{{ auth()->user()->grado_asignado }} {{ __('Grado') }}</p>
+              </x-side>
+          </li>
+            </ul>
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Boletin
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+          <li class="nav-item">
+              <x-side :href="route('profesor.calificar.tablaBoletin')" :active="request()->routeIs('profesor.calificar.tablaBoletin')" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Boletines Estudiantes</p>
               </x-side>
           </li>
             </ul>

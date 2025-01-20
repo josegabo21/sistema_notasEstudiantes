@@ -116,6 +116,6 @@ class RegisteredUserController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Registration successful!');
     }
-
+    
     
 }

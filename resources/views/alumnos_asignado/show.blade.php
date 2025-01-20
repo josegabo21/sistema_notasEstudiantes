@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StudyChard | Lista Representante</title>
+  <title>Atom | Editar estudiantes</title>
   <link rel="icon" href="{{ asset('/AdminLTE/dist/img/logo.png') }}" type="image/png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,7 +25,7 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.css') }}">
-  <!-- dataTables -->
+    <!-- dataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
@@ -44,7 +43,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('admin.layouts.side-nav')
+  @include('layouts.side-nav')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -53,13 +52,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+            <h1 class="m-0">Editar estudiantes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"> <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
                       {{ __('Inicio') }}
                     </x-nav-link></li>
-              <li class="breadcrumb-item active">Lista de representante</li>
+              <li class="breadcrumb-item active">Editar estudiantes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -69,46 +69,66 @@
 
     <!-- Main content -->
     <section class="content">
-    <section class="content">
       <div class="container-fluid">
-      <div class="row justify-content-center">
         <!-- Small boxes (Stat box) -->
-        <div class="col-md-25">
-            <div class="table-responsive mt-4">
-                <div class="bg-white p-4 rounded">
-                <div style="overflow-x: auto;">
-                            <table id="studentsTable" class="table table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="text-center">Nombre y Apellido</th>
-                                        <th scope="col" class="text-center">Correo</th>
-                                        <th scope="col" class="text-center">Cedula</th>
-                                        <th scope="col" class="text-center">Edad</th>
-                                        <th scope="col" class="text-center">Fecha de Nacimiento</th>
-                                        <th scope="col" class="text-center">Direccion</th>
-                                        <th scope="col" class="text-center">Telefono</th>
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Form Element sizes -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Datos Personales del Estudiante</h3>
+              </div>
+              <div class="card-body">
+              <div class="form-group">
+              <div class="mb-3">
+                  <img src="{{ asset('images/' . $student->foto) }}" alt="Foto del Estudiante" class="rounded-circle mx-auto d-block" style="width: 100px; height: 100px;">
+              </div>
+              <div class="mb-3 text-center">
+                  <strong>Nombre:</strong>
+                  <span class="ml-2">{{ $student->nombre }}</span>
+              </div>
+              <div class="mb-3 text-center">
+                  <strong>Apellido:</strong>
+                  <span class="ml-2">{{ $student->apellido }}</span>
+              </div>
+              <div class="mb-3 text-center">
+                  <strong>Edad:</strong>
+                  <span class="ml-2">{{ $student->edad }} {{ __('Años') }}</span>
+              </div>
+              <div class="mb-3 text-center">
+                  <strong>Grado:</strong>
+                  <span class="ml-2">{{ $student->grado }} {{ __('Grado') }}</span>
+              </div>
+              <div class="mb-3 text-center">
+                  <strong>Fecha de Nacimiento:</strong>
+                  <span class="ml-2">{{ \Carbon\Carbon::parse($student->fecha_nacimiento)->format('d/m/Y') }}</span>
+              </div>
 
-                                    </tr>
-                                </thead> 
-                                <tbody>
-                                @foreach ($users as $user)
-                                    <tr>
-                                        <td class="text-center">{{$user->nombre}} {{$user->apellido}}</td>
-                                        <td class="text-center">{{$user->email}}</td>
-                                        <td class="text-center">{{$user->cedula}}</td>
-                                        <td class="text-center">{{$user->edad}} {{ __('Años') }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->fecha_nacimiento)->format('d/m/Y') }}</td>  
-                                        <td class="text-center">{{$user->direccion}}</td>
-                                        <td class="text-center"><span class="mr-2">+58</span>{{$user->telefono_representante}}</td>  
-                                        </tr>
-                                    @endforeach
-                                </tbody>   
-                            </table>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+              <div class="mb-3 text-center">
+                  <strong>Cédula:</strong>
+                  <span class="ml-2">{{ $student->cedula ? $student->cedula : 'No aplica' }}</span>
+              </div>
+
+              <div class="mb-3 text-center">
+                  <strong>Dirección:</strong>
+                  <span class="ml-2">{{ $student->direccion }}</span>
+              </div>
+              <div class="mb-3 text-center">
+                <strong>Teléfono del representante:</strong>
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="mr-2">+58</span>
+                    <span>{{ $student->telefono_representante }}</span>
                 </div>
+            </div>
+              <!-- /.card-body -->
+            </div>
+
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
@@ -153,54 +173,14 @@
 <script src="{{ asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
-<!-- dataTables -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-<!--SweetAlert-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
- $(document).ready(function() {
-    $('#studentsTable').DataTable({
-        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "Todos"]],
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ entradas por página",
-            "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
-            "infoFiltered": "(filtrado de _MAX_ entradas totales)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        }
-    });
-});
-</script>
-
-<script>
-    function confirmDelete(studentId) {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡No podrás revertir esto!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminarlo!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('delete-form-' + studentId).submit();
-        }
-    });
-}
-</script>
 </body>
 </html>
+
+    
+
+    
+
+    
 
 
     

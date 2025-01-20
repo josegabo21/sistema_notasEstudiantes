@@ -5,19 +5,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
 {
     
     public function index(){
+        $users = User::all();
         $students = student::all();
         $routeName = Route::currentRouteName();
         $profile=explode(".",$routeName)[0];
         if ($profile=="profesor"){
             return view("$profile.dashboard",compact('students'));
         }
-        return view("$profile.students.view",compact('students'));
+        return view("$profile.students.view",compact('students', 'users'));
         
     }
 
@@ -213,4 +215,26 @@ class StudentsController extends Controller
     return view('profesor.grades.grade', compact('studentsByGrade'));
 }
 
+    public function assignRepresentative(Request $request, $studentId)
+    {
+        $request->validate([
+            'representante_id' => 'required|exists:users,id',
+        ]);
+
+        $student = Student::findOrFail($studentId);
+        $student->representante_id = $request->representante_id; // Asigna el ID del representante
+        $student->save();
+
+        return redirect()->route('admin.student.view')->with('success', 'Estudiante asignado al representante correctamente.');
+    }
+
+    public function boletin($grado = null)
+    {
+        $profesor = auth()->user(); // Obtener el profesor autenticado
+
+    // Inicializar un array para almacenar los estudiantes por grado
+        $studentsByGrade = [];
+        $studentsByGrade[$profesor->grado_asignado] = Student::where('grado', $profesor->grado_asignado)->get();
+        return view('profesor.calificar.tablaBoletin', compact('studentsByGrade'));
+    }
 }
