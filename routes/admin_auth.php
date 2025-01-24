@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Admin\AdminUserProfesorController;
 use App\Http\Controllers\Admin\AdminUserRepresentanteController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -35,7 +36,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Agrega la ruta para actualizar la contraseña
-    Route::patch('/password', [PasswordController::class, 'update'])->name('password.update');
+    Route::patch('/password', [PasswordController ::class, 'update'])->name('password.update');
     
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])

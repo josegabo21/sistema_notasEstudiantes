@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class activity extends Model
 {
-    protected $fillable = ['titulo', 'descripcion', 'tipo', 'grado','fecha','hora_de_inicio','hora_de_cierre'];
+    protected $fillable = ['title', 'description', 'type','start','end'];
 
-    protected $table = "students";
+    protected $table = "activities";
 }

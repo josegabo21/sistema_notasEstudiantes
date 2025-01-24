@@ -53,4 +53,6 @@ Route::middleware('auth:profesor')->prefix('profesor')->name('profesor.')->group
     Route::get('/boletines/{id_student}/create', [boletinesController::class,'create'])->middleware(['verified'])->name('boletin.create');
     Route::post('/boletines/{id_student}',[boletinesController::class,'store']);
     Route::get('/boletines/descarga/{id_boletin}', [boletinesController::class,'descarga'])->middleware(['verified'])->name('boletin.descarga');
+
+    require __DIR__.'/profesor_calendar.php';
 });

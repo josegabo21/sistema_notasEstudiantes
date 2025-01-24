@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->text('descripcion')->nullable();
-            $table->string('tipo')->default('Clase teórica');
-            $table->string("grado",length:8);
-            $table->date('fecha');
-            $table->time('hora_de_inicio');
-            $table->time('hora_de_cierre');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('type')->default('Clase teórica');
+            $table->dateTime('start');
+            $table->dateTime('end')->nullable();
+            $table->string('backgroundColor')->nullable();
+            $table->boolean('allDay');
+            //$table->string('grade');
             $table->timestamps();
         });
     }
