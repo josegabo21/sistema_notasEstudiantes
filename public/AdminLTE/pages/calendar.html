@@ -1049,7 +1049,10 @@
           end            : new Date(y, m, d, 14, 0),
           allDay         : false,
           backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
+          borderColor    : '#00c0ef',
+          dateClick:function(info){
+            console.log(info);
+          }
         },
         {
           title          : 'Birthday Party',
@@ -1069,7 +1072,10 @@
         }
       ],
       editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
+      droppable : true, 
+      dateClick:function(info){
+            console.log(info);
+          },// this allows things to be dropped onto the calendar !!!
       drop      : function(info) {
         // is the "remove after drop" checkbox checked?
         if (checkbox.checked) {

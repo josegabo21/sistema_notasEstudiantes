@@ -23,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        {{-- <div class="collapse navbar-collapse" id="navbarCollapse"> --}}
             <div class="d-flex justify-content-between w-100 me-4">
                 <!-- Parte Izquierda -->
                 <div class="d-flex align-items-center">
@@ -171,6 +171,22 @@
               </x-side>
           </li>
             </ul>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Cronograma de Actividades
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <x-side :href="route('profesor.calendar.view')" :active="request()->routeIs('profesor.calendar.view')" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>{{ auth()->user()->grado_asignado }} {{ __('Grado') }}</p>
+                </x-side>
+            </li>
+              </ul>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

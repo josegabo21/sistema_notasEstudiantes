@@ -23,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        {{-- <div class="collapse navbar-collapse" id="navbarCollapse"> --}}
             <div class="d-flex justify-content-between w-100 me-4">
                 <!-- Parte Izquierda -->
                 <div class="d-flex align-items-center">

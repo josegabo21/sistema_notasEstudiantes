@@ -19,8 +19,7 @@ return new class extends Migration
             $table->dateTime('start');
             $table->dateTime('end')->nullable();
             $table->string('backgroundColor')->nullable();
-            $table->boolean('allDay');
-            //$table->string('grade');
+            $table->boolean('allDay')->default(0);
             $table->timestamps();
         });
     }

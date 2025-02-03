@@ -60,4 +60,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/estudiantes', [StudentsController::class, 'getEstudiantesPorGrado']);
 
+    //Actividades
+    require __DIR__.'/auth_calendar.php';
 });

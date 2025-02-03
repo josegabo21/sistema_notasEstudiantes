@@ -20,7 +20,7 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- include-->
-  @include('profesor.layouts.side-nav')
+  @include('layouts.side-nav')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -100,10 +100,8 @@
             </div>
           </div>  --}}
           <!-- /.col -->
-          @include("profesor.actividades.createmodal")
-          @include("profesor.actividades.showmodal")
-          @include("profesor.actividades.editmodal")
-          @include("profesor.actividades.deletemodal")
+         
+          @include("auth.actividades.showmodal")
           <div class="col-md-9">
             <div class="card card-primary">
               <div class="card-body p-0">
@@ -223,7 +221,7 @@
         String(date.getMinutes()).padStart(2, "0"),
       ].join(":");
     }
-    var  myModal=new bootstrap.Modal(document.getElementById('myModal'))
+    var grado="{{$grado}}"
     var  ShowModal=new bootstrap.Modal(document.getElementById('ShowModal'))
     var calendar = new Calendar(calendarEl, {
       locale:'es',
@@ -234,43 +232,19 @@
       },
       themeSystem: 'bootstrap',
       //Random default events
-      events: 'api/events',
+      events: "/api/events/"+grado,
       editable  : true,
-      dateClick:function(info){
-        //console.log(info.date.toISOString().substring(0,16));
-        if (info.dateStr.length > 11){
-          document.getElementById('start').value=info.dateStr.substring(0,16)//"2028-02-08T19:20";
-          document.getElementById('end').value=null//info.dateStr.substring(0,10)+"T23:30"//"2028-02-08T19:20";
-        }else{
-          document.getElementById('start').value=info.dateStr+"T00:00"
-          document.getElementById('end').value=null//info.dateStr+"T23:30"
-        }
-          
-        myModal.show();
-      },
-      eventClick: function(info){
+       eventClick: function(info){
         //mostrar
         $('#eventModalTitle').text(info.event.title);
         $('#eventModalType').text(info.event.extendedProps.type);
         $('#eventModaldescription').text(info.event.extendedProps.description);
         $('#Content').css('background-color', info.event.backgroundColor);
-        ShowModal.show();
-        //editar
-        document.getElementById('usuario_id').value=info.event.id;
-        document.getElementById('title2').value=info.event.title;
-        document.getElementById('description2').value=info.event.extendedProps.description;
-        document.getElementById('type2').value=info.event.extendedProps.type;
-        document.getElementById('start2').value=formatearFechaParaInput(info.event.start);
-        document.getElementById('end2').value=formatearFechaParaInput(info.event.end);
-        document.getElementById('allDay2').checked=info.event.allDay;
-        document.getElementById('backgroundColor2').value=info.event.backgroundColor;
-        //Eliminar
-        document.getElementById('usuario_id2').value=info.event.id;
-        $('#eventModalTitle2').text('¿Esta seguro de querer eliminar la actividad '+info.event.title+'?');
-        
+        ShowModal.show();        
+      }, 
+      windowResize: function(view) {
+        calendar.updateSize(); // Reajusta el tamaño del calendario
       },
-      eventDrop:updateEvent,
-      eventResize:updateEvent,
       //droppable : true, // this allows things to be dropped onto the calendar !!!
       // drop      : function(info) {
       //   // is the "remove after drop" checkbox checked?
@@ -282,35 +256,13 @@
     });
 
     calendar.render();
+    $('#calendar').resize(function () {
+        calendar.updateSize();
+    });
     // $('#calendar').fullCalendar()
 
 
-  function updateEvent(info) {
-    let event = {
-        id: info.event.id,
-        start: formatearFechaParaInput(info.event.start),
-        end: info.event.end ? formatearFechaParaInput(info.event.end) : null
-    };
-    
-    $.ajax({
-        url: 'api/update-event',
-        method: 'POST',
-        data: event,
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        success: function(response) {
-            alert('Evento actualizado correctamente');
-            calendar.refetchEvents();
-        },
-        error: function() {
-            alert('Error al actualizar el evento');
-            info.revert(); // Si falla, regresa el evento a su posición original
-        }
-    });
-}
-
-
-
-
+ 
   //   /* ADDING EVENTS */
   //   var currColor = '#3c8dbc' //Red by default
   //   // Color chooser button
