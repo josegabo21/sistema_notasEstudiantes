@@ -82,7 +82,7 @@
               <div class="icon">
               <i class="fas fa-user-graduate"></i>
               </div>
-              <a href="{{ route('estudiantes') }}" class="small-box-footer">Ver estidiante(s) <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('estudiantes') }}" class="small-box-footer">Ver estudiante(s) <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -96,9 +96,9 @@
               <div class="icon">
               <i class="fas fa-calendar-day"></i>
               </div>
-              @foreach($students as $student)
-                    <a href="{{ route('calendar.view', $student->grado) }}" class="small-box-footer">
-                        Ver calendario para {{ $student->grado }} {{ __('Grado') }} <i class="fas fa-arrow-circle-right"></i>
+              @foreach($students as $grade)
+                    <a href="{{ route('calendar.view', $grade) }}" class="small-box-footer">
+                        Ver calendario para {{ $grade }} {{ __('Grado') }} <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 @endforeach
             </div>

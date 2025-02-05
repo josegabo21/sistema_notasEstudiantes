@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\activity;
+use App\Models\Admin;
+use App\Models\Profesor;
+use App\Models\student;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +19,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Admin::create([
+        //     'nombre' => 'Test User',
+        //     'apellido'=>'Admin',
+        //     'email' => 'test@example.com',
+        //     'password'=>bcrypt('12345678')
+        // ]);
+        // User::factory(100)->create();
+
+        // Profesor::factory(12)->create();
+
+        // student::factory(200)->create();
+
+        activity::factory(540)->create();
+
     }
 }

@@ -240,7 +240,7 @@ class StudentsController extends Controller
     
     public function dashboard()
 {
-    $students = auth()->user()->students; // Obtén los estudiantes del usuario autenticado
+    $students = auth()->user()->students()->distinct()->orderBy('grado', 'asc')->pluck('grado'); // Obtén los estudiantes del usuario autenticado
     return view('dashboard', compact('students')); // Pasa la colección a la vista
 }
     public function estudiantesAsignado()

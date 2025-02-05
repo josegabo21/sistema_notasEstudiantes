@@ -3,57 +3,47 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Profesor>
  */
-class UserFactory extends Factory
+class ProfesorFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
+
     public function definition()
     {
         // Generamos la edad primero (mayor de 18 años)
-        $edad = $this->faker->numberBetween(18,  70);
+        $edad = $this->faker->numberBetween(18, 60);
+
+        // Definimos el grado que puede enseñar según la edad
+        $grados = ['1er', '2do', '3er', '4to', '5to', '6to'];
+        $gradoAsignado = $this->faker->randomElement($grados);
+
+        // Tipo de profesor
+        $tipoProfesor = 'regular';
 
         // Generamos la fecha de nacimiento basada en la edad
         $fechaNacimiento = $this->faker->dateTimeBetween('-' . ($edad + 1) . ' years', '-' . $edad . ' years')
-                                       ->format('Y-m-d');
+            ->format('Y-m-d');
 
         return [
             'nombre' => $this->faker->firstName,
             'apellido' => $this->faker->lastName,
             'edad' => $edad,
+            'grado_asignado' => $gradoAsignado,
+            'tipo_profesor' => $tipoProfesor,
             'fecha_nacimiento' => $fechaNacimiento,
-            'cedula' => (string) $this->faker->unique()->numberBetween(7000000, 30999999),
+            'cedula' => (string) $this->faker->unique()->numberBetween(8000000, 30999999),
             'direccion' => $this->faker->address,
-            'telefono_representante' => $this->faker->phoneNumber,
-            'profesor_id' => null,
-            'student_id' => null,
-            'grado_asignado' => null,
+            'telefono_profesor' => $this->faker->phoneNumber,
             'foto' => $this->faker->optional()->imageUrl(200, 200, 'people'),
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('12345678'), // Contraseña encriptada
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }
